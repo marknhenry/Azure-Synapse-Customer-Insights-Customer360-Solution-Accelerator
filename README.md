@@ -9,6 +9,10 @@ products:
 - power-bi
 ---
 
+[![Mark Henry](https://img.shields.io/static/v1?label=Contributor&message=Mark%20Henry&color=success)](https://www.linkedin.com/in/marknhenry/) 
+[![License](https://img.shields.io/static/v1?label=License&message=MIT&color=blue)](https://www.linkedin.com/in/marknhenry/)
+
+
 ![Azure Synapse Customer Insights Customer 360 Solution Accelerator](./Deployment/img/Customer360SATitle.PNG)
 
 # Azure Synapse Customer Insights Customer360 Solution Accelerator
