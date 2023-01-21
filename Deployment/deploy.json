@@ -185,8 +185,8 @@
                 "cacheSize": 0,
                 "dynamicExecutorAllocation": {
                     "enabled": true, 
-                    "min": 0,
-                    "max":4
+                    "minExecutors": 0,
+                    "maxExecutors":4
                 }
             }
         },
