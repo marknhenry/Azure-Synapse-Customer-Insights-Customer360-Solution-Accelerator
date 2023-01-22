@@ -1,7 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    
+
     "parameters": {
         "suffixName": {
             "type": "string",
@@ -18,7 +18,7 @@
                 "true",
                 "false"
             ],
-            "defaultValue": "false", 
+            "defaultValue": "false",
             "metadata": {
                 "description": "Allow connections from all IP addresses to your workspace's endpoints. You can restrict these permissions to just Azure datacenter IP addresses and/or specific IP address ranges after creating the workspace."
             }
@@ -34,16 +34,16 @@
         "storageContainer": "data",
 
         "uniqueName": "[substring(uniqueString(variables('rgId')),0,4)]",
-        
+
         "synapseWorkspaceName": "[concat('synapse-ws-',variables('paramName'))]",
         "storageName": "[replace(replace(toLower(concat(concat('synapsestrg',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
-        
+
         "machinelearningName": "[concat('ml-', variables('paramName'))]",
         "storageMLname": "[replace(replace(toLower(concat(concat('mlstrg',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
-        
+
         "appinsightsname": "[concat(variables('machinelearningName'), 'ai')]",
-		"keyvaultname": "[replace(replace(toLower(concat(concat('keyvault',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
-        
+        "keyvaultname": "[replace(replace(toLower(concat(concat('keyvault',variables('paramName')),variables('uniqueName'))),'-',''),'_','')]",
+
         "StorageBlobDataContributor": "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
     },
 
@@ -152,10 +152,10 @@
                     "location": "[variables('location')]",
                     "dependsOn": [ "[variables('synapseWorkspaceName')]" ],
                     "properties": {
-                      "startIpAddress": "0.0.0.0",
-                      "endIpAddress": "255.255.255.255"
+                        "startIpAddress": "0.0.0.0",
+                        "endIpAddress": "255.255.255.255"
                     }
-                  }
+                }
             ]
         },
         {
@@ -184,13 +184,13 @@
                 "sessionLevelPackagesEnabled": false,
                 "cacheSize": 0,
                 "dynamicExecutorAllocation": {
-                    "enabled": true, 
-                    "minExecutors": 0,
-                    "maxExecutors":4
+                    "enabled": true,
+                    "minExecutors": 1,
+                    "maxExecutors": 4
                 }
             }
         },
-        
+
         {
             "type": "microsoft.insights/components",
             "apiVersion": "2020-02-02-preview",
@@ -290,16 +290,16 @@
             "name": "[guid(uniqueString(variables('storageName')))]",
             "location": "[variables('location')]",
             "dependsOn": [
-              "[variables('synapseWorkspaceName')]", 
-              "[variables('storageName')]"
+                "[variables('synapseWorkspaceName')]",
+                "[variables('storageName')]"
             ],
             "properties": {
-              "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('StorageBlobDataContributor'))]",
-              "principalId": "[reference(resourceId('Microsoft.Synapse/workspaces', variables('synapseWorkspaceName')), '2019-06-01-preview', 'Full').identity.principalId]",
-              "principalType": "ServicePrincipal"
+                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('StorageBlobDataContributor'))]",
+                "principalId": "[reference(resourceId('Microsoft.Synapse/workspaces', variables('synapseWorkspaceName')), '2019-06-01-preview', 'Full').identity.principalId]",
+                "principalType": "ServicePrincipal"
             }
         },
-        { 
+        {
             "apiVersion": "2020-10-01",
             "name": "pid-7d4bca09-1beb-50cd-b4f9-13c3872d3591",
             "type": "Microsoft.Resources/deployments",
